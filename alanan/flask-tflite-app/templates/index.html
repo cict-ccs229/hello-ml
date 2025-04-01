@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Cancer Classifier Starter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Skin Cancer Classifier Starter</h1>
+    </header>
+    
+    <div class="container">
+        <div class="content-box">
+            <form action="/classify" method="post" enctype="multipart/form-data">
+                <label for="file-upload" class="custom-file-upload">Choose File</label>
+                <input id="file-upload" type="file" name="file" accept="image/*" required>
+                <button type="submit">Upload & Classify</button>
+            </form>
+        </div>
+        
+        {% if message %}
+            <p class="error">{{ message }}</p>
+        {% endif %}
+
+        {% if classification %}
+            <div class="result-box">
+                <h2>Classification Result:</h2>
+                <p><strong>Predicted Class:</strong> {{ classification }}</p>
+                <p><strong>Description:</strong> {{ description }}</p>
+                
+                {% if image %}
+                    <h3>Uploaded Image:</h3>
+                    <img class="uploaded-img" src="{{ url_for('uploaded_file', filename=image) }}" alt="Uploaded Image">
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <footer>
+        Made by Nel Alanan | Powered by TensorFlow
+    </footer>
+</body>
+</html>
